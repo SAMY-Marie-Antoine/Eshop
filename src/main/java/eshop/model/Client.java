@@ -1,21 +1,31 @@
 package eshop.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.mapping.Array;
 
 @Entity
 @DiscriminatorValue("customer")
 public class Client extends Personne{
-	
+
 	private int age;
-	
+
 	private LocalDate dateNaissance;
-		
+
+	@ManyToMany
+	private List<Produit> achat=new ArrayList();
+
+
+
 	public Client() {}
-	
+
 
 	public Client(String nom,String prenom,int age, LocalDate dateNaissance, Adresse adresse) {
 		super(nom,prenom,adresse);
@@ -41,6 +51,15 @@ public class Client extends Personne{
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
+	
+	public List<Produit> getAchat() {
+		return achat;
+	}
+
+
+	public void setAchat(List<Produit> achat) {
+		this.achat = achat;
+	}
 
 	@Override
 	public String toString() {
@@ -49,8 +68,8 @@ public class Client extends Personne{
 	}
 
 
-	
-	
-	
+
+
+
 
 }

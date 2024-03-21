@@ -5,22 +5,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="product")
 public class Produit {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name="description",length = 40,nullable = false)
 	private String libelle;
-	
+
 	@Column(name="price",columnDefinition = "decimal(5,2)")
 	private double prix;
-	
+
+	@ManyToOne
+	private Fournisseur fournisseur;
+
+
+
 	public Produit() {}
 
 	public Produit(String libelle, double prix) {
@@ -52,11 +58,19 @@ public class Produit {
 		this.prix = prix;
 	}
 
+
+	public Fournisseur getFournisseur() {
+		return fournisseur;
+	}
+
+	public void setFournisseur(Fournisseur fournisseur) {
+		this.fournisseur = fournisseur;
+	}
 	@Override
 	public String toString() {
 		return "Produit [id=" + id + ", libelle=" + libelle + ", prix=" + prix + "]";
 	}
-	
-	
+
+
 
 }
