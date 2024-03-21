@@ -1,17 +1,24 @@
 package eshop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="product")
 public class Produit {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="description",length = 40,nullable = false)
 	private String libelle;
+	
+	@Column(name="price",columnDefinition = "decimal(5,2)")
 	private double prix;
 	
 	public Produit() {}
