@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import eshop.model.Achat;
 import eshop.model.Adresse;
 import eshop.model.Client;
 import eshop.model.Fournisseur;
@@ -28,8 +29,27 @@ public class Test {
 		
 				
 		produit.setFournisseur(f1);
-		c1.getAchat().add(produit);
-		c1.getAchat().add(produit2);
+		produit2.setFournisseur(f1);
+		
+		/*
+		 * Modifier la classe Fournisseur : ajouter List<Produit> stock 
+		 * Modifier la classe Produit : ajouter List<Achat> ventes 
+		 * Ajouter les mappedBy pour n'avoir QUE les tables suivantes : product, person, achat
+
+		 */
+		//Dans le main, ne plus utiliser client.getAchats().add(produit) 
+		//=> creer des objets Achat et les persist (em.persist() pour insert) à la place 
+		
+		Achat achat1 = new Achat(10, c1, produit);
+		Achat achat2 = new Achat(12, c1, produit2);
+		
+		c1.getAchats().add(achat1);
+         c1.getAchats().add(achat2);
+		//List<Achat> lproduit = new ArrayList();
+		//lproduit.add(achat2);
+		//lproduit.add(achat1);
+		
+		//c1.setAchats(lproduit);
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("contextJPA");
 		EntityManager em = emf.createEntityManager();
@@ -40,6 +60,8 @@ public class Test {
 		em.persist(f1);
 		em.persist(produit);
 		em.persist(produit2);
+		em.persist(achat1);
+		em.persist(achat2);
 		em.getTransaction().commit();
 
 		em.close();

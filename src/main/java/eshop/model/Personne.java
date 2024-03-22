@@ -1,3 +1,4 @@
+
 package eshop.model;
 
 import javax.persistence.Column;

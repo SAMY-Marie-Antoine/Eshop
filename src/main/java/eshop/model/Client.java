@@ -7,7 +7,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.mapping.Array;
 
@@ -19,9 +22,18 @@ public class Client extends Personne{
 
 	private LocalDate dateNaissance;
 
-	@ManyToMany
-	private List<Produit> achat=new ArrayList();
-
+	
+	@OneToMany(mappedBy = "client")
+	/*@JoinTable(name = "achats",
+	joinColumns = @JoinColumn(name="acheteur"),
+	inverseJoinColumns = @JoinColumn(name="produit")
+	)
+	*/
+	//Modifier la classe Client :
+	//List<Produit> achats => List<Achat> achats (conserver le @JoinTable) 
+	
+	//private List<Produit> achat=new ArrayList();
+	private List<Achat> achats=new ArrayList();
 
 
 	public Client() {}
@@ -52,13 +64,23 @@ public class Client extends Personne{
 		this.adresse = adresse;
 	}
 	
-	public List<Produit> getAchat() {
-		return achat;
+	//public List<Produit> getAchat() {
+	//	return achat;
+	//}
+
+
+	//public void setAchat(List<Produit> achat) {
+	//	this.achat = achat;
+	//}
+	
+	
+	public List<Achat> getAchats() {
+		return achats;
 	}
 
 
-	public void setAchat(List<Produit> achat) {
-		this.achat = achat;
+	public void setAchats(List<Achat> achats) {
+		this.achats = achats;
 	}
 
 	@Override
